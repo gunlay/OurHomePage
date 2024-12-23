@@ -1,0 +1,448 @@
+:root {
+    --primary-gradient: linear-gradient(120deg, #00A3FF, #0066FF);
+    --secondary-gradient: linear-gradient(120deg, #FF2D55, #FF375F);
+    --glass-background: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --text-primary: rgba(255, 255, 255, 0.92);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    background: #000;
+    line-height: 1.5;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    background: 
+        /* 主背景渐变 */
+        linear-gradient(125deg, #000B1F 0%, #001E3C 100%),
+        /* 科技网格效果 */
+        linear-gradient(rgba(1, 65, 255, 0.05) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(1, 65, 255, 0.05) 2px, transparent 2px),
+        /* 光晕效果 */
+        radial-gradient(circle at 20% 20%, rgba(0, 163, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 80%, rgba(0, 163, 255, 0.1) 0%, transparent 40%);
+    background-size: 
+        100% 100%,
+        30px 30px,
+        30px 30px,
+        100% 100%,
+        100% 100%;
+    background-position: 
+        0 0,
+        0 0,
+        0 0,
+        0 0,
+        0 0;
+}
+
+/* 添加动态光效 */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(0, 163, 255, 0.2) 50%, 
+        transparent 100%);
+    animation: scanline 4s linear infinite;
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+.product-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    perspective: 1000px;
+}
+
+.product {
+    position: relative;
+    height: 480px;
+    border-radius: 24px;
+    padding: 2rem;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 40px rgba(0, 163, 255, 0.05);
+}
+
+#product1 {
+    background: var(--glass-background);
+    box-shadow: 0 0 80px rgba(0, 163, 255, 0.1);
+}
+
+#product2 {
+    background: var(--glass-background);
+    box-shadow: 0 0 80px rgba(255, 45, 85, 0.1);
+}
+
+.product-content {
+    z-index: 1;
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.5;
+    transition: opacity 0.5s ease;
+}
+
+#product1::before {
+    background: linear-gradient(135deg, 
+        rgba(0, 163, 255, 0.15),
+        rgba(0, 102, 255, 0.05));
+}
+
+#product2::before {
+    background: linear-gradient(135deg,
+        rgba(255, 45, 85, 0.15),
+        rgba(255, 55, 95, 0.05));
+}
+
+.product:hover::before {
+    opacity: 0.2;
+}
+
+.animate-text {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+h2.animate-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0.8) 50%,
+        rgba(255, 255, 255, 0.6) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(0, 163, 255, 0.1);
+}
+
+p.animate-text {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(0, 163, 255, 0.1);
+    color: var(--text-primary);
+    text-decoration: none;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 163, 255, 0.2);
+    box-shadow: 0 0 20px rgba(0, 163, 255, 0.05);
+}
+
+.cta-button:hover {
+    background: rgba(0, 163, 255, 0.15);
+    border-color: rgba(0, 163, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 163, 255, 0.1);
+}
+
+.product:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 60px rgba(0, 163, 255, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .product-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .product {
+        height: 320px;
+        padding: 1.5rem;
+    }
+    
+    h2.animate-text {
+        font-size: 2rem;
+    }
+    
+    .cta-button {
+        padding: 0.875rem 1.75rem;
+    }
+    
+    .container {
+        background-size: 
+            100% 100%,
+            20px 20px,
+            20px 20px,
+            100% 100%,
+            100% 100%;
+    }
+}
+
+/* 添加动态光效 */
+@keyframes shine {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* 添加光标跟随效果 */
+.cursor-glow {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(
+        circle,
+        rgba(0, 163, 255, 0.15) 0%,
+        rgba(0, 163, 255, 0.1) 20%,
+        rgba(0, 163, 255, 0) 60%
+    );
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    mix-blend-mode: screen;
+}
+
+/* 当鼠标移动到产品卡片上时的效果 */
+.product:hover ~ .cursor-glow {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(
+        circle,
+        rgba(0, 163, 255, 0.2) 0%,
+        rgba(0, 163, 255, 0.15) 20%,
+        rgba(0, 163, 255, 0) 60%
+    );
+}
+
+/* 优化产品卡片的光效 */
+.product {
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.product:hover::after {
+    opacity: 1;
+}
+
+/* 添加苹方字体声明 */
+@font-face {
+    font-family: 'PingFang SC';
+    src: local('PingFang SC');
+    font-display: swap;
+}
+
+/* 标题样式 */
+.main-title {
+    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    font-size: 4.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 4rem;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.9) 50%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    position: relative;
+    text-shadow: 0 0 30px rgba(0, 163, 255, 0.1);
+    animation: titleFadeIn 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* 标题动画 */
+@keyframes titleFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 标题装饰线 */
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(0, 163, 255, 0.5),
+        transparent
+    );
+    border-radius: 3px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .main-title::after {
+        width: 60px;
+        height: 2px;
+    }
+}
+
+/* 调整容器布局以适应新标题 */
+.container {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-wrapper {
+    width: 100%;
+    /* 其他现有样式保持不变 */
+}
+
+/* 产品图标样式 */
+.product-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-icon svg {
+    width: 64px;
+    height: 64px;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 图标悬停效果 */
+.product:hover .product-icon svg {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 20px rgba(0, 163, 255, 0.3));
+}
+
+#product1 .product-icon svg {
+    filter: drop-shadow(0 0 10px rgba(0, 163, 255, 0.2));
+}
+
+#product2 .product-icon svg {
+    filter: drop-shadow(0 0 10px rgba(255, 45, 85, 0.2));
+}
+
+/* 图标动画 */
+@keyframes iconFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.product-icon {
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+/* 调整产品内容布局 */
+.product-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .product-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .product-icon svg {
+        width: 48px;
+        height: 48px;
+    }
+}
